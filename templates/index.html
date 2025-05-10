@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filipino Food Chatbot</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .chat-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            height: 500px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 70%;
+        }
+        .user-message {
+            background-color: #e3f2fd;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+        .bot-message {
+            background-color: #f1f1f1;
+            margin-right: auto;
+            border-bottom-left-radius: 5px;
+        }
+        #input-area {
+            display: flex;
+            gap: 10px;
+        }
+        #question-input {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .typing {
+            opacity: 0.6;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Filipino Food Chatbot</h1>
+    <div class="chat-container" id="chat-container">
+        <!-- Messages will appear here -->
+    </div>
+    <div id="input-area">
+        <input type="text" id="question-input" placeholder="Ask about Filipino food...">
+        <button id="ask-button">Ask</button>
+    </div>
+
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const questionInput = document.getElementById('question-input');
+        const askButton = document.getElementById('ask-button');
+
+        function addMessage(text, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+            messageDiv.textContent = text;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.classList.add('message', 'bot-message', 'typing');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.textContent = 'Bot is typing...';
+            chatContainer.appendChild(typingDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function hideTyping() {
+            const typingDiv = document.getElementById('typing-indicator');
+            if (typingDiv) {
+                typingDiv.remove();
+            }
+        }
+
+        async function sendQuestion() {
+            const question = questionInput.value.trim();
+            if (!question) return;
+
+            questionInput.value = '';
+            addMessage(question, true);
+            showTyping();
+
+            try {
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ question: question })
+                });
+
+                const data = await response.json();
+                hideTyping();
+
+                if (data.error) {
+                    addMessage(`Error: ${data.error}`, false);
+                } else {
+                    addMessage(data.response, false);
+                }
+            } catch (error) {
+                hideTyping();
+                addMessage('Sorry, there was an error processing your request.', false);
+                console.error('Error:', error);
+            }
+        }
+
+        askButton.addEventListener('click', sendQuestion);
+        questionInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendQuestion();
+            }
+        });
+    </script>
+</body>
+</html>
