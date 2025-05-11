@@ -1,6 +1,6 @@
 # 🍲 Filipino Food AI Chatbot
 
-A chatbot web application that provides information about Filipino cuisine using TensorFlow/Keras
+A chatbot web application that provides information about Filipino food using TensorFlow/Keras
 
 ## ✨ Features
 
