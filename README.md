@@ -24,14 +24,14 @@ pip install flask flask-cors transformers torch tensorflow numpy pyttsx3
 
 ## 📁 Project Structure
 filipino-food-chatbot/
-├── server.py                 # Main Flask application
-├── templates/
-│   └── index.html            # Chat interface
-├── text_generation_model.keras  # TensorFlow model
-├── tokenizer.pkl             # Keras tokenizer
-└── README.md
-└── train_model.py            # Script to train the model
-└── food_dataset.txt          # Dataset
+- server.py                 # Main Flask application
+- templates/
+-- index.html            # Chat interface
+- text_generation_model.keras  # TensorFlow model
+- tokenizer.pkl             # Keras tokenizer
+- README.md
+- train_model.py            # Script to train the model
+- food_dataset.txt          # Dataset
 
 ## 🚀 Running the Application
 # Run in Terminal
