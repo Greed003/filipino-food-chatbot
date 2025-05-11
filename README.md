@@ -16,10 +16,10 @@ A chatbot web application that provides information about Filipino cuisine using
 
 ### Setup
 #### Clone repository
-git clone https://github.com/yourusername/filipino-food-chatbot.git /
-cd filipino-food-chatbot
+- git clone https://github.com/Greed003/filipino-food-chatbot.git
+- cd filipino-food-chatbot
 #### Install dependencies
-pip install flask flask-cors transformers torch tensorflow numpy pyttsx3
+- pip install flask flask-cors transformers torch tensorflow numpy pyttsx3
 
 ## 📁 Project Structure
 filipino-food-chatbot/
