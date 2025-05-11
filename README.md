@@ -15,11 +15,10 @@ A chatbot web application that provides information about Filipino cuisine using
 - pip package manager
 
 ### Setup
-# Clone repository
+#### Clone repository
 git clone https://github.com/yourusername/filipino-food-chatbot.git
 cd filipino-food-chatbot
-
-# Install dependencies
+#### Install dependencies
 pip install flask flask-cors transformers torch tensorflow numpy pyttsx3
 
 ## 📁 Project Structure
@@ -34,7 +33,8 @@ filipino-food-chatbot/
 - food_dataset.txt          # Dataset
 
 ## 🚀 Running the Application
-# Run in Terminal
+
+### Run in Terminal
 python server.py
-# Open in Browser
+### Open in Browser
 http://127.0.0.1:5000
